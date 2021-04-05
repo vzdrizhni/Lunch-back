@@ -1,6 +1,15 @@
 class WeekdaysController < ApplicationController
     before_action :is_admin?
 
+    def index
+        weekdays = Weekday.all
+        if weekdays
+            render json: {success: true, data: weekday}
+        else
+            render json: {success: false, message: "There is no such day"}
+        end
+    end
+
     def create
         weekday = Weekday.create
         render json: {success: true, data: weekday}

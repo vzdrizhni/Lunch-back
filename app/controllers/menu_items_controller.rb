@@ -32,6 +32,11 @@ class MenuItemsController < ApplicationController
         end
     end
     
+    def add_food
+        menu = Menu.find(params[:menu_id])
+        menu.menu_items.
+    end
+    
 
     private
 

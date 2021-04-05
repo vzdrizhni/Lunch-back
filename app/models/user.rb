@@ -1,7 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
 
-    validates :name, presence: true, length: { in: 3..50 }, uniqueness: true
+    validates :username, presence: true, length: { in: 3..50 }, uniqueness: true
 
     before_create :set_admin
 

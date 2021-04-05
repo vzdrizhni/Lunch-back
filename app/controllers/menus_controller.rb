@@ -22,7 +22,8 @@ class MenusController < ApplicationController
     
     def create
         weekdays = Weekday.find(params[:weekday_id])
-        menu = weekdays.menus.build(menu_params)
+        menu_item = MenuItem.find(params[:id])
+        menu = weekdays.menus.build(menu_item: menu_item)
         if menu.valid?
             menu.save
             render json: {success: true, data: menu}
@@ -49,11 +50,5 @@ class MenusController < ApplicationController
         else
             render json: {success: false, message: "There is no such menu"}
         end
-    end
-
-    private
-
-    def menu_params
-        params.require(:menu).permit(:title)        
-    end
+    end   
 end

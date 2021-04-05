@@ -1,5 +1,6 @@
 class Weekday < ApplicationRecord
     has_many :menus, foreign_key: "weekday_id", dependent: :destroy
+    has_many :menu_items, through: :menus
 
     default_scope -> { order(created_at: :desc) }
 

@@ -30,13 +30,7 @@ class MenuItemsController < ApplicationController
         else
             render json: {message: "MenuItem was not found"}
         end
-    end
-    
-    def add_food
-        menu = Menu.find(params[:menu_id])
-        menu.menu_items.
-    end
-    
+    end    
 
     private
 

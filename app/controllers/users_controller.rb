@@ -22,6 +22,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = logged_in_user
+    
+    if @user.admin
+      edited_user = User.find_by(id: params[:id])
+      edited_user.update(user_params)
+      render json: {user: edited_user}
+    elsif @user
+      @user.update(user_params)
+      render json: {user: @user}
+    else
+      render json: {msg: errors.full_messages}
+    end
+  end  
 
   def auto_login
     render json: @user
@@ -30,6 +44,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:username, :password)
+    params.require(:user).permit(:username, :password)
   end
 end

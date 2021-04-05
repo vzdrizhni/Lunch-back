@@ -1,5 +1,5 @@
 class Weekday < ApplicationRecord
-    has_many :menus, foreign_key: "weekday_id"
+    has_many :menus, foreign_key: "weekday_id", dependent: :destroy
 
     before_save :default_values
 

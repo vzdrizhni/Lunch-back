@@ -7,14 +7,14 @@ class WeekdaysController < ApplicationController
     end
     
     def destroy
-        weekday = weekday.find(params[:id])
+        puts params
+        weekday = Weekday.find(params[:id])
         if weekday
             weekday.destroy
-            render json: {success: true, message: "A day was successfully destroyed"}
+            render json: {success: true, message: "A day with #{weekday.id} was successfully destroyed"}
         else
             render json: {success: false, message: "There is no such day"}
         end
-    end
-    
+    end 
 
 end

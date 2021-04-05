@@ -12,6 +12,17 @@ class MenusController < ApplicationController
         end
     end
 
+    def destroy
+        menu = Menu.find(params[:id])
+        if menu
+            menu.destroy
+            render json: {success: true, message: "A menu with #{menu.id} was deleted"}
+        else
+            render json: {success: false, message: menu.errors.full_messages}
+        end
+    end
+    
+
     private
 
     def menu_params

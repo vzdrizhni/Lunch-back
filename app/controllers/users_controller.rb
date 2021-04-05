@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :authorized, only: [:auto_login]
+  before_action :authorized, only: [:auto_login]
 
   def create
     @user = User.create(user_params)
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       @user.update(user_params)
       render json: {user: @user}
     else
-      render json: {msg: errors.full_messages}
+      render json: {msg: @user.errors.full_messages}
     end
   end  
 

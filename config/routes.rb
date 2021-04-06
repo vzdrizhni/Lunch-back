@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   get "/auto_login", to: "users#auto_login"
   
   resources :weekdays do    
-      post "/menu_items/:id", to: "menus#create"  
+    resources :menu_items do
+      resources :orders
+      resources :menus
+    end
   end
   
   resources :menu_items

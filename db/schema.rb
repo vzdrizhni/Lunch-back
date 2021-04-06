@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_200456) do
+ActiveRecord::Schema.define(version: 2021_04_06_074556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 2021_04_05_200456) do
     t.index ["weekday_id"], name: "index_menus_on_weekday_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "weekday_id", null: false
+    t.bigint "menu_item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["menu_item_id"], name: "index_orders_on_menu_item_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["weekday_id"], name: "index_orders_on_weekday_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -49,4 +60,7 @@ ActiveRecord::Schema.define(version: 2021_04_05_200456) do
 
   add_foreign_key "menus", "menu_items"
   add_foreign_key "menus", "weekdays"
+  add_foreign_key "orders", "menu_items"
+  add_foreign_key "orders", "users"
+  add_foreign_key "orders", "weekdays"
 end

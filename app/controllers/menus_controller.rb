@@ -22,7 +22,7 @@ class MenusController < ApplicationController
     
     def create
         weekdays = Weekday.find(params[:weekday_id])
-        menu_item = MenuItem.find(params[:id])
+        menu_item = MenuItem.find(params[:menu_item_id])
         menu = weekdays.menus.build(menu_item: menu_item)
         if menu.valid?
             menu.save

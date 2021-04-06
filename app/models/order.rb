@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
-  has_one :user
-  has_one :weekday
-  has_many :menu_items
+  belongs_to :user
+  belongs_to :weekday
+  has_many :order_items
+  has_many :menu_items, through: :order_items, foreign_key: :order_id
 end

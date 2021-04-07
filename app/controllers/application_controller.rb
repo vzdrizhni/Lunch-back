@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   before_action :authorized
 
@@ -5,14 +7,14 @@ class ApplicationController < ActionController::API
     JWT.encode(payload, 'yourSecret')
   end
 
-  def auth_header    
+  def auth_header
     request.headers['Authorization']
   end
 
   def decoded_token
     if auth_header
       token = auth_header.split(' ')[1]
-      
+
       begin
         JWT.decode(token, 'yourSecret', true, algorithm: 'HS256')
       rescue JWT::DecodeError
@@ -33,13 +35,16 @@ class ApplicationController < ActionController::API
   end
 
   def authorized
-    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+    unless logged_in?
+      render json: { message: 'Please log in' }, status: :unauthorized
+    end
   end
 
   def is_admin?
     @user = logged_in_user
-    
-    render json: { message: 'You are not allowed to do that' }, status: :unauthorized unless @user.admin?
+
+    unless @user.admin?
+      render json: { message: 'You are not allowed to do that' }, status: :unauthorized
+    end
   end
-  
 end

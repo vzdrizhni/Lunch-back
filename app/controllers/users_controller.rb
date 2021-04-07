@@ -1,41 +1,43 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authorized, only: [:auto_login]
 
   def create
     @user = User.create(user_params)
     if @user.valid?
-      token = encode_token({user_id: @user.id})
-      render json: {user: @user, token: token}
+      token = encode_token({ user_id: @user.id })
+      render json: { user: @user, token: token }
     else
-      render json: {error: @user.errors.full_messages}
+      render json: { error: @user.errors.full_messages }
     end
   end
 
   def login
     @user = User.find_by(username: params[:username])
 
-    if @user && @user.authenticate(params[:password])
-      token = encode_token({user_id: @user.id})
-      render json: {user: @user, token: token}
+    if @user&.authenticate(params[:password])
+      token = encode_token({ user_id: @user.id })
+      render json: { user: @user, token: token }
     else
-      render json: {error: "Invalid username or password"}
+      render json: { error: 'Invalid username or password' }
     end
   end
 
   def update
     @user = logged_in_user
-    
+
     if @user.admin
       edited_user = User.find_by(id: params[:id])
       edited_user.update(user_params)
-      render json: {user: edited_user}
+      render json: { user: edited_user }
     elsif @user
       @user.update(user_params)
-      render json: {user: @user}
+      render json: { user: @user }
     else
-      render json: {msg: @user.errors.full_messages}
+      render json: { msg: @user.errors.full_messages }
     end
-  end  
+  end
 
   def auto_login
     render json: @user

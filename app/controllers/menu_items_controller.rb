@@ -12,7 +12,6 @@ class MenuItemsController < ApplicationController
       render json: { message: 'No items were found', success: false}
     end
   end
-  
 
   def show
     menu_item = MenuItem.find(params[:id])
@@ -23,13 +22,12 @@ class MenuItemsController < ApplicationController
         render json: { message: 'No item was found', success: false}
     end
   end
-  
 
   def create
     menu_item = MenuItem.new(menu_item_params)
-    menu_item_serializer = parse_json menu_item
     if menu_item.valid?
       menu_item.save
+      menu_item_serializer = parse_json menu_item
       render json: { success: true, data: menu_item_serializer}
     else
       render json: { message: menu_item.errors.full_messages }

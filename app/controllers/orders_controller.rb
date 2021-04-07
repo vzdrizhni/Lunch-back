@@ -3,12 +3,11 @@ class OrdersController < ApplicationController
     def create
         weekday = Weekday.find(params[:weekday_id])       
 
-        order = Order.new(weekday: weekday, user: @user)
+        order = Order.create(weekday: weekday, user: @user)
+        params[:menu_items].map { |hash| order.order_items.create(menu_item_id: hash.dig(:id)) }     
         
         if order.valid?
-            order.save
-            order_params.map { |hash| order.order_items.create(menu_item_id: hash.dig(:id)) }      
-            render json: {success: true, data: order.order_items}
+            render json: {success: true, data: order.menu_items}
         else
            render json: {success: false, message: order.errors.full_messages}
         end

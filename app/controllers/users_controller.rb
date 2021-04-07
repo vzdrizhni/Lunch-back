@@ -2,6 +2,17 @@
 
 class UsersController < ApplicationController
   before_action :authorized, only: [:auto_login]
+  before_action :is_admin?, only: [:index]
+
+  def index
+    users = User.all
+
+    if users
+      render json: { data: users, success: true }
+    else
+      render json: {success: false, message: "No users found"}
+    end
+  end
 
   def create
     @user = User.create(user_params)

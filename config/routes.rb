@@ -6,13 +6,11 @@ Rails.application.routes.draw do
 
   resources :weekdays do
     resources :menu_items do
-      resources :menus
     end
     resources :orders, only: [:create]
-    resources :menus
   end
 
   resources :orders
   resources :menu_items
-  resources :users, only: %i[create update]
+  resources :users, only: %i[create update index]
 end

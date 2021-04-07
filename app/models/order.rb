@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   has_many :menu_items, through: :order_items
 
   validates :order_items, length: { maximum: 3 }
+  default_scope -> { order(created_at: :desc) }
 
   before_save :set_total_price, :set_default_status
 

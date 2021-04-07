@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MenuItem < ApplicationRecord
-  include Rails.application.routes.url_helpers
+  # include Rails.application.routes.url_helpers
 
   enum menu_item_type: %i[first_course main_course drink]
 

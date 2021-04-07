@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
     order.order_items.destroy_all unless order.order_items.empty?
 
     params[:menu_items].map { |hash| order.order_items.create!(menu_item_id: hash[:id]) }
+    order.save
     order_serializer = parse_json order
 
     if order.valid?

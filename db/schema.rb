@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_073358) do
+ActiveRecord::Schema.define(version: 2021_04_07_174959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 2021_04_07_073358) do
     t.bigint "weekday_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "total_price"
+    t.integer "status"
     t.index ["user_id"], name: "index_orders_on_user_id"
     t.index ["weekday_id"], name: "index_orders_on_weekday_id"
   end
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_073358) do
     t.boolean "admin"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
   end
 
   create_table "weekdays", force: :cascade do |t|

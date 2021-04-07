@@ -8,10 +8,11 @@ Rails.application.routes.draw do
     resources :menu_items do
       resources :menus
     end
-    resources :orders
+    resources :orders, only: [:create]
     resources :menus
   end
 
+  resources :orders
   resources :menu_items
   resources :users, only: %i[create update]
 end

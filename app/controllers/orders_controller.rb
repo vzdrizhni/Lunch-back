@@ -7,9 +7,10 @@ class OrdersController < ApplicationController
     order.order_items.destroy_all unless order.order_items.empty?
 
     params[:menu_items].map { |hash| order.order_items.create!(menu_item_id: hash[:id]) }
+    order_serializer = parse_json order
 
-    if order
-      render json: { success: true, data: order.order_items }
+    if order.valid?
+      render json: { success: true, data: order_serializer}
     else
       render json: { success: false, message: order.errors.full_messages }
     end
@@ -20,11 +21,23 @@ class OrdersController < ApplicationController
 
     order = Order.create(weekday: weekday, user: @user)
     params[:menu_items].map { |hash| order.order_items.create(menu_item_id: hash.dig(:id)) }
+    order_serializer = parse_json order
 
     if order.valid?
-      render json: { success: true, data: order.menu_items }
+      render json: { success: true, data: order_serializer }
     else
       render json: { success: false, message: order.errors.full_messages }
+    end
+  end
+
+  def destroy
+    order = Order.find(params[:id])
+    order.destroy
+
+    if order.nil?
+      render json: { success: true, message: "An order with #{order.id} was deleted" }
+    else
+      render json: { success: false, message: "Something went wrong" }
     end
   end
 

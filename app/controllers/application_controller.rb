@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  include SerializableResource
   before_action :authorized
 
   def encode_token(payload)

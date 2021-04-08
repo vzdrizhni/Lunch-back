@@ -42,9 +42,9 @@ class ApplicationController < ActionController::API
   end
 
   def is_admin?
-    @user = logged_in_user
+    user = logged_in_user
 
-    unless @user.admin?
+    unless user.admin?
       render json: { message: 'You are not allowed to do that' }, status: :unauthorized
     end
   end

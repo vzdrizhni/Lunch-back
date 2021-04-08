@@ -1,12 +1,23 @@
 # frozen_string_literal: true
 
 class WeekdaysController < ApplicationController
-  before_action :is_admin?
+  before_action :is_admin?, except: :index
 
   def index
     weekdays = Weekday.all
     if weekdays
-      render json: { success: true, data: weekday }
+      render json: { success: true, data: weekdays }
+    else
+      render json: { success: false, message: 'There is no such day' }
+    end
+  end
+
+  def show
+    weekday = Weekday.find(params[:id])
+
+    if weekday
+      weekday_serializer = parse_json weekday
+      render json: { success: true, data: weekday_serializer}
     else
       render json: { success: false, message: 'There is no such day' }
     end

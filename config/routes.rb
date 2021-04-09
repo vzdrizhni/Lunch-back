@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :weekdays do
     resources :menu_items do
     end
+    resources :menus
     resources :orders, only: [:create]
   end
 

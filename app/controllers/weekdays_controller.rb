@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class WeekdaysController < ApplicationController
-  before_action :is_admin?, except: :index
+  before_action :is_admin?, except: [:index, :show]
 
   def index
     weekdays = Weekday.all

@@ -17,9 +17,9 @@ class MenuItemsController < ApplicationController
     menu_item = MenuItem.find(params[:id])
     menu_item_serializer = parse_json menu_item
     if menu_item
-        render json: { success: true, data: menu_item_serializer}
+      render json: { success: true, data: menu_item_serializer}
     else
-        render json: { message: 'No item was found', success: false}
+      render json: { message: 'No item was found', success: false}
     end
   end
 

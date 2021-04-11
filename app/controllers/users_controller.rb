@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
   before_action :authorized, only: [:auto_login]
-  before_action :is_admin?, only: [:index]
+  before_action :is_admin?, only: [:index, :update]
 
   def index
     users = User.all
@@ -36,18 +36,20 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = logged_in_user
-
     if @user.admin
       edited_user = User.find_by(id: params[:id])
       edited_user.update(user_params)
       render json: { user: edited_user }
-    elsif @user
-      @user.update(user_params)
-      render json: { user: @user }
     else
       render json: { msg: @user.errors.full_messages }
     end
+  end
+
+  def change_credentials
+    user = logged_in_user
+
+    user.update(user_params)
+    render json: { user: @user, success: true}
   end
 
   def auto_login

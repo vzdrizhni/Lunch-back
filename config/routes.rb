@@ -3,6 +3,8 @@
 Rails.application.routes.draw do
   post '/login', to: 'users#login'
   get '/auto_login', to: 'users#auto_login'
+  put '/change', to: 'users#change_credentials'
+  get '/user_orders', to: 'orders#user_orders'
 
   resources :weekdays do
     resources :menu_items do

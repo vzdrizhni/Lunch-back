@@ -34,14 +34,23 @@ class OrdersController < ApplicationController
     weekday = Weekday.find(params[:weekday_id])
 
     order = Order.create(weekday: weekday, user: @user)
-    params[:menu_items].map { |hash| order.order_items.create(menu_item_id: hash.dig(:id)) }
-    order_serializer = parse_json order
+    params[:menu_items].map { |hash| order.order_items.create!(menu_item_id: hash[:id]) }
 
     if order.valid?
+      order.save
+      order_serializer = parse_json order
       render json: { success: true, data: order_serializer }
     else
       render json: { success: false, message: order.errors.full_messages }
     end
+  end
+
+  def user_orders
+    orders = @user.orders
+
+    orders_serializer = parse_json orders
+
+    render json: { success: true, data: orders_serializer}
   end
 
   def destroy

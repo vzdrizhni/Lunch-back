@@ -11,12 +11,13 @@ class Order < ApplicationRecord
   validates :order_items, length: { maximum: 3 }
   default_scope -> { order(created_at: :desc) }
 
-  before_save :set_total_price, :set_default_status
+  after_save :set_default_status
+  before_validation :set_total_price
 
   private
 
   def set_total_price
-    self.total_price = menu_items.inject(0) {|sum, item| sum + item[:price]}.round(2)
+    self.total_price = menu_items.sum(:price)
   end
 
   def set_default_status

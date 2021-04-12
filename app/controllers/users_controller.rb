@@ -52,10 +52,6 @@ class UsersController < ApplicationController
     render json: { user: @user, success: true}
   end
 
-  def auto_login
-    render json: @user
-  end
-
   private
 
   def user_params

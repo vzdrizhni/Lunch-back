@@ -3,4 +3,5 @@ class OrderSerializer < ActiveModel::Serializer
 
   has_many :menu_items
   belongs_to :weekday
+  belongs_to :user
 end

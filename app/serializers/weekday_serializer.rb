@@ -1,5 +1,5 @@
 class WeekdaySerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :created_at
 
   has_many :menu_items
   has_many :menus

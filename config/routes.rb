@@ -5,11 +5,12 @@ Rails.application.routes.draw do
   get '/auto_login', to: 'users#auto_login'
   put '/change', to: 'users#change_credentials'
   get '/user_orders', to: 'orders#user_orders'
+  patch '/orders/:id', to: 'orders#status'
 
   resources :weekdays do
     resources :menu_items do
     end
-    resources :menus
+    resource :menus
     resources :orders, only: [:create]
   end
 

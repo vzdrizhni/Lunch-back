@@ -21,6 +21,6 @@ class Order < ApplicationRecord
   end
 
   def set_default_status
-    self.status = 'pending'
+    self.status = 'pending' unless self.status
   end
 end

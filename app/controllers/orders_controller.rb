@@ -64,6 +64,18 @@ class OrdersController < ApplicationController
     end
   end
 
+  def status
+    order = Order.find params[:id]
+
+    order.update(status: params[:status]);
+    order.save
+    if order.valid?
+      render json: { success: true, message: 'An order was successfully updated', data: order}
+    else
+      render json: { success: false, message: 'Something went wrong'}
+    end
+  end
+
   private
 
   def order_params

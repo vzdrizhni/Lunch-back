@@ -23,7 +23,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/vzdrizhni/Lunch-back">
-    <img src="src/public/assets/nick.png" alt="Logo" width="80" height="120">
+    <img src="/public/assets/nick.png" alt="Logo" width="80" height="120">
   </a>
 
   <h3 align="center">ReactJs --> [Lunch-back App]</h3>
@@ -54,7 +54,7 @@
 ## About The Project
 This is a Lunch ordering application built with react and redux. Depending on a user role, user can make orders and change it's content or delete them if it's not approved or rejected. If a user is an admin, user can craete menu items and add them to the menu list, check orders and modify them.
 
-![screenshot-1](src/public/assets/screenshot.PNG)
+![screenshot-1](/public/assets/screenshot.PNG)
 
 ## Deployment
 The project has been deployed with Heroku and Images are deploying to Cloudinary.

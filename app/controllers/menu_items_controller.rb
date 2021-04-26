@@ -4,7 +4,9 @@ class MenuItemsController < ApplicationController
   before_action :is_admin?
 
   def index
+    weekday = Weekday.find(params[:weekday_id])
     menu_items = MenuItem.all
+    menu_items = weekday.excluded_menu_items(menu_items)
     if menu_items
       menu_item_serializer = parse_json menu_items
       render json: { success: true, data: menu_item_serializer}

@@ -5,7 +5,12 @@ class Weekday < ApplicationRecord
   has_many :menu_items, through: :menus
   has_many :orders, dependent: :destroy
 
-  default_scope -> { order(created_at: :desc) }
+  # scope :excluded_menu_items, -> { self.menu_items.select { |item| !self.menu_items.include?(item)} }
+  def excluded_menu_items(all_menu_items)
+    self.menu_items.select { |item| all_menu_items.include?(item) }
+  end
+
+  # default_scope -> { order(created_at: :desc) }
 
   before_save :default_values
 

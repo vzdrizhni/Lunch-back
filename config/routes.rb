@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   end
 
   resources :orders
-  resources :menu_items
+  resources :menu_items, except: [:index]
   resources :users, only: %i[create update index]
 end

@@ -12,7 +12,7 @@ class MenuItemsController < ApplicationController
       menu_item_serializer = parse_json menu_items
       render json: { success: true, data: menu_item_serializer}
     else
-      render json: { message: 'No items were found', success: false}
+      render json: { message: 'No items were found', success: false }
     end
   end
 
@@ -20,7 +20,7 @@ class MenuItemsController < ApplicationController
     menu_item = MenuItem.find(params[:id])
     menu_item_serializer = parse_json menu_item
     if menu_item
-      render json: { success: true, data: menu_item_serializer}
+      render json: { success: true, data: menu_item_serializer }
     else
       render json: { message: 'No item was found', success: false}
     end
@@ -33,7 +33,7 @@ class MenuItemsController < ApplicationController
       menu_item_serializer = parse_json menu_item
       render json: { success: true, data: menu_item_serializer}
     else
-      render json: { message: menu_item.errors.full_messages }
+      render json: { success: false, message: menu_item.errors.full_messages }
     end
   end
 

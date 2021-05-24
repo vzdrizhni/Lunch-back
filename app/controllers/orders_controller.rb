@@ -70,7 +70,10 @@ class OrdersController < ApplicationController
     order.update(status: params[:status]);
     order.save
     if order.valid?
-      render json: { success: true, message: 'An order was successfully updated', data: order}
+      render json: { success: true,
+                     message: 'An order was successfully updated',
+                     data: order}
+      ActionCable.server.broadcast "notifications_channel_#{logged_in_user.id}", order.to_json
     else
       render json: { success: false, message: 'Something went wrong'}
     end

@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   resources :orders
   resources :menu_items, except: [:index]
   resources :users, only: %i[create update index]
+
+  mount ActionCable.server => '/cable'
 end
